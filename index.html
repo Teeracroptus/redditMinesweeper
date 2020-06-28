@@ -13,7 +13,7 @@ function newMinefield() {
   var mines = [];
   for (var j = 0; j < 10; j++) {
     var mineRow = [];
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 8; i++) {
       mineRow[i] = "";
     }
     mines[j] = mineRow;
@@ -22,7 +22,7 @@ function newMinefield() {
     var newMine;
     var mineNotPlaced = true;
     while (mineNotPlaced) {
-      newMine = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+      newMine = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 8)];
       if (!mines[newMine[0]][newMine[1]]) {
         mines[newMine[0]][newMine[1]] = ">!X!<";
         mineNotPlaced = false;
@@ -31,13 +31,13 @@ function newMinefield() {
   }
   var countAdjacentMines = 0;
   for (var j = 0; j < 10; j++) {
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 8; i++) {
       if (!mines[j][i]) {
         countAdjacentMines = 0;
         for (var v = j - 1; v < j + 2; v++) {
           if (v > -1 && v < 10) {
             for (var u = i - 1; u < i + 2; u++) {
-              if (u > -1 && u < 10) {
+              if (u > -1 && u < 8) {
                 if (mines[v][u] === ">!X!<") {
                   countAdjacentMines = countAdjacentMines + 1;
                 }
@@ -54,22 +54,22 @@ function newMinefield() {
     }
   }
   var minefieldString = " ";
-  for (var i = 0; i < 9; i++) {
+  for (var i = 0; i < 7; i++) {
     minefieldString = minefieldString + "| ";
   }
   minefieldString = minefieldString + "\n";
   minefieldString = minefieldString + ":--:";
-  for (var i = 0; i < 9; i++) {
+  for (var i = 0; i < 7; i++) {
     minefieldString = minefieldString + "|:--:";
   }
   minefieldString = minefieldString + "\n";
   for (var j = 0; j < 10; j++) {
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 8; i++) {
       if (i > 0) {
         minefieldString = minefieldString + "|";
       }
       minefieldString = minefieldString + mines[i][j];
-      if (i == 9) {
+      if (i == 7) {
         minefieldString = minefieldString + "\n";
       }
     }
