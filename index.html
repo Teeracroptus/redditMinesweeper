@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Reddit Minesweeper</h1>
+<p>Just click the button and copy the text below</p>
+<p>Then paste in Reddit in Markdown mode</p>
+
+
+<button onclick="newMinefield()">Generate Minefield</button>
+<script>
+function newMinefield() {
+  var mines = [];
+  for (var j = 0; j < 10; j++) {
+    var mineRow = [];
+    for (var i = 0; i < 10; i++) {
+      mineRow[i] = "";
+    }
+    mines[j] = mineRow;
+  }
+  for (var countMines = 1; countMines < 11; countMines++) {
+    var newMine;
+    var mineNotPlaced = true;
+    while (mineNotPlaced) {
+      newMine = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+      if (!mines[newMine[0]][newMine[1]]) {
+        mines[newMine[0]][newMine[1]] = ">!X!<";
+        mineNotPlaced = false;
+      }
+    }
+  }
+  var countAdjacentMines = 0;
+  for (var j = 0; j < 10; j++) {
+    for (var i = 0; i < 10; i++) {
+      if (!mines[j][i]) {
+        countAdjacentMines = 0;
+        for (var v = j - 1; v < j + 2; v++) {
+          if (v > -1 && v < 10) {
+            for (var u = i - 1; u < i + 2; u++) {
+              if (u > -1 && u < 10) {
+                if (mines[v][u] === ">!X!<") {
+                  countAdjacentMines = countAdjacentMines + 1;
+                }
+              }
+            }
+          }
+        }
+        if (countAdjacentMines > 0) {
+          mines[j][i] = ">!" + countAdjacentMines.toString() + "!<";
+        } else {
+          mines[j][i] = ">! !<";
+        }
+      }
+    }
+  }
+  var minefieldString = " ";
+  for (var i = 0; i < 9; i++) {
+    minefieldString = minefieldString + "| ";
+  }
+  minefieldString = minefieldString + "\n";
+  minefieldString = minefieldString + ":--:";
+  for (var i = 0; i < 9; i++) {
+    minefieldString = minefieldString + "|:--:";
+  }
+  minefieldString = minefieldString + "\n";
+  for (var j = 0; j < 10; j++) {
+    for (var i = 0; i < 10; i++) {
+      if (i > 0) {
+        minefieldString = minefieldString + "|";
+      }
+      minefieldString = minefieldString + mines[i][j];
+      if (i == 9) {
+        minefieldString = minefieldString + "\n";
+      }
+    }
+  }
+  document.getElementById("minefield").innerHTML = minefieldString;
+}
+</script>
+
+<pre id="minefield">Minefield will be generated here</pre>
+</body>
+</html>
