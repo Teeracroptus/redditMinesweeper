@@ -24,7 +24,7 @@ function newMinefield() {
     while (mineNotPlaced) {
       newMine = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
       if (!mines[newMine[0]][newMine[1]]) {
-        mines[newMine[0]][newMine[1]] = ">!&#128163;!<";
+        mines[newMine[0]][newMine[1]] = ">!&amp#128163;!<";
         mineNotPlaced = false;
       }
     }
@@ -38,7 +38,7 @@ function newMinefield() {
           if (v > -1 && v < 10) {
             for (var u = i - 1; u < i + 2; u++) {
               if (u > -1 && u < 10) {
-                if (mines[v][u] === ">!&#128163;!<") {
+                if (mines[v][u] === ">!&amp#128163;!<") {
                   countAdjacentMines = countAdjacentMines + 1;
                 }
               }
